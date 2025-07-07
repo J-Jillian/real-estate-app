@@ -1,90 +1,62 @@
+// src/components/Navbar.jsx
 import {
   Box,
   Flex,
   HStack,
-  Link,
   IconButton,
+  Button,
   useDisclosure,
   Stack,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
-const links = [
-  { label: "Inicio", href: "#" },
-  { label: "Servicios", href: "#services" },
-  { label: "Nosotros", href: "#about" },
-  { label: "Contacto", href: "#contact" },
-];
+const Links = ["Inicio", "Servicios", "Nosotros", "Contacto"];
 
-const Navbar = () => {
+const NavLink = ({ children }) => (
+  <Button variant="ghost" _hover={{ bg: "gray.100" }}>
+    {children}
+  </Button>
+);
+
+export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Box
-      bg="teal.600"
+      bg="white"
       px={4}
-      color="white"
+      boxShadow="md"
       position="sticky"
       top="0"
-      zIndex="100">
-      <Flex
-        h={16}
-        alignItems="center"
-        justifyContent="space-between"
-        maxW="container.lg"
-        mx="auto">
-        <Box fontWeight="bold" fontSize="xl" cursor="pointer">
-          MiAgencia
-        </Box>
-
+      zIndex="1000">
+      <Flex h={16} alignItems="center" justifyContent="space-between">
+        <Box fontWeight="bold">TuMarca</Box>
         <IconButton
           size="md"
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
           aria-label="Abrir menú"
           display={{ md: "none" }}
           onClick={isOpen ? onClose : onOpen}
-          color="white"
-          bg="teal.700"
-          _hover={{ bg: "teal.800" }}
         />
-
         <HStack
           spacing={8}
           alignItems="center"
           display={{ base: "none", md: "flex" }}>
-          {links.map(({ label, href }) => (
-            <Link
-              px={2}
-              py={1}
-              rounded="md"
-              _hover={{ bg: "teal.700" }}
-              href={href}
-              key={label}>
-              {label}
-            </Link>
+          {Links.map((link) => (
+            <NavLink key={link}>{link}</NavLink>
           ))}
         </HStack>
       </Flex>
 
-      {isOpen && (
+      {isOpen ? (
         <Box pb={4} display={{ md: "none" }}>
           <Stack as="nav" spacing={4}>
-            {links.map(({ label, href }) => (
-              <Link
-                key={label}
-                px={2}
-                py={1}
-                rounded="md"
-                _hover={{ bg: "teal.700" }}
-                href={href}
-                onClick={onClose}>
-                {label}
-              </Link>
+            {Links.map((link) => (
+              <NavLink key={link}>{link}</NavLink>
             ))}
           </Stack>
         </Box>
-      )}
+      ) : null}
     </Box>
   );
-};
-export default Navbar;
+}

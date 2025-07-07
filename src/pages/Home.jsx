@@ -1,16 +1,23 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { HeroSection } from "../components/HeroSection";
+import Hero from "../components/Hero";
+import Blog from "../components/Blog";
 import { BenefitsSection } from "../components/BenefitsSection";
-import { AboutSection } from "../components/AboutSection";
+import About from "../components/About";
 import { CallToActionSection } from "../components/CallToActionSection";
+import Services from "../components/Service";
+import Testimonials from "../components/Testimonials";
 
-export default function Home() {
+const Home = () => {
   return (
     <ChakraProvider>
-      <HeroSection />
+      <Hero />
+      <About />
+      <Services />
       <BenefitsSection />
-      <AboutSection />
+      <Testimonials />
+      <Blog />
       <CallToActionSection />
     </ChakraProvider>
   );
-}
+};
+export default Home;
